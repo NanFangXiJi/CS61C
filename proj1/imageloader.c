@@ -25,17 +25,67 @@
 //Make sure that you close the file with fclose before returning.
 Image *readData(char *filename) 
 {
-	//YOUR CODE HERE
+	uint32_t col, row;
+	FILE *file = fopen(filename, "r");
+	if (file == NULL) {
+		return NULL;
+	}
+	char tmp[4];
+	fscanf(file, "%s", tmp);
+	fscanf(file, "%u %u", &col, &row);
+	fscanf(file, "%s", tmp);
+
+	Image *img = malloc(sizeof(Image));
+	img->cols = col;
+	img->rows = row;
+	img->image = malloc(sizeof(Color *) * col * row);
+
+	Color **colorPointer = img->image;
+
+	uint8_t r, g, b;
+	while (fscanf(file, "%hhu %hhu %hhu", &r, &g, &b) == 3) {
+		*colorPointer = malloc(sizeof(Color));
+		(*colorPointer)->R = r;
+		(*colorPointer)->G = g;
+		(*colorPointer)->B = b;
+		colorPointer++;
+	}
+
+	fclose(file);
+
+	return img;
 }
 
 //Given an image, prints to stdout (e.g. with printf) a .ppm P3 file with the image's data.
 void writeData(Image *image)
 {
-	//YOUR CODE HERE
+	printf("P3\n");
+	printf("%d %d\n", image->cols, image->rows);
+	printf("255\n");
+
+	Color **colorPointer = image->image;
+
+	for (int i = 0; i < image->rows; i++) {
+		for (int j = 0 ; j < image->cols; j++) {
+			if (j != 0) {
+				printf("   ");
+			}
+
+			printf("%3d %3d %3d", (*colorPointer)->R, (*colorPointer)->G, (*colorPointer)->B);
+			colorPointer++;
+		}
+		printf("\n");
+	}
 }
 
 //Frees an image
 void freeImage(Image *image)
 {
-	//YOUR CODE HERE
+	Color **color = image->image;
+	for (int i = 0; i < image->cols * image->rows; i++) {
+		free(*color);
+		color++;
+	}
+	free(image->image);
+	free(image);
 }
