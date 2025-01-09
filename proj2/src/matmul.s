@@ -83,7 +83,7 @@ inner_loop_start:
     mv a1, s1
     mv a2, s3
     li a3, 1
-    mv a4, s3
+    mv a4, s5
     
     jal ra, dot
     sw a0, 0(s2)
