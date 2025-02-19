@@ -1,20 +1,40 @@
 --- not autograded ---
 
 Part 1
-    blocksize = 20, n = 100: 
+    blocksize = 20, n = 100:
+        Testing naive transpose: 0.013 milliseconds
+        Testing transpose with blocking: 0.029 milliseconds
     blocksize = 20, n = 1000: 
+        Testing naive transpose: 4.388 milliseconds
+        Testing transpose with blocking: 4.746 milliseconds
     blocksize = 20, n = 2000: 
+        Testing naive transpose: 16.772 milliseconds
+        Testing transpose with blocking: 14.976 milliseconds
     blocksize = 20, n = 5000: 
+        Testing naive transpose: 330.575 milliseconds
+        Testing transpose with blocking: 104.7 milliseconds
     blocksize = 20, n = 10000: 
+        Testing naive transpose: 2725.11 milliseconds
+        Testing transpose with blocking: 450.277 milliseconds
 
-    Checkoff Question 1:
-    Checkoff Question 2:
+    Checkoff Question 1:When the scale of n is not less than 2000.
+    Checkoff Question 2:If the scale of the matrix is not big enough, the cache might be capable to store a huge part of the data or even the whole data. And they don't need to calculate that complex index if it uses non-cache blocked code.
 
 Part 2
     blocksize = 50, n = 10000:
+        Testing naive transpose: 2819.08 milliseconds
+        Testing transpose with blocking: 572.43 milliseconds
     blocksize = 100, n = 10000:
+        Testing naive transpose: 3102.36 milliseconds
+        Testing transpose with blocking: 367.85 milliseconds
     blocksize = 500, n = 10000:
+        Testing naive transpose: 3134.24 milliseconds
+        Testing transpose with blocking: 274.971 milliseconds
     blocksize = 1000, n = 10000:
+        Testing naive transpose: 3659.63 milliseconds
+        Testing transpose with blocking: 404.29 milliseconds
     blocksize = 5000, n = 10000:
+        Testing naive transpose: 3210.03 milliseconds
+        Testing transpose with blocking: 2008.78 milliseconds
 
-    Checkoff Question 3:
+    Checkoff Question 3:The close it is to 500, the faster it runs. When the blocksize is smaller, the cache for dst is worse; when it is bigger, the cache for src is worse. This value might be the most appropriate value.

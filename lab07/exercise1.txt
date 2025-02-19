@@ -1,24 +1,25 @@
 Scenario 1
-    1.
-    2.
-    3.
+    1.Step Size, Cache Size
+    2.0.0
+    3.Step Size, 1
 
 Scenario 2
-    1.
-    2.
-    3.
+    1.16
+    2.MH
+    3.1.0
 
 Scenario 3
-    1.
-    2.
-    3.
-    4.
-    5.
+    1.0.5, 0.0, 0.33
+    2.32, 16
+    3.16
+    4.Rep Count
+    5.=, =, +, =
 
 --- lines below are ignored by the AG ---
 
-Checkoff Question 1:
-Checkoff Question 2:
-Checkoff Question 3:
-Checkoff Question 4:
-Checkoff Question 5:
+Checkoff Question 1:Step Size is still equals to Cache Size.
+Checkoff Question 2:Block Size, 32
+Checkoff Question 3:The Cache Size can store all the data of this array, and each Block is required for twice.
+Checkoff Question 4:As all the data has been loaded into the Cache, every data request can be found in Cache. 
+Checkoff Question 5:element, Rep, element, element
+Checkoff Question 6:Because all the data has been stored in L2 Cache, but all the data the program need at the beginning of one loop would be overwriten by the last half of one loop. As well as the data for the last half of the loop.

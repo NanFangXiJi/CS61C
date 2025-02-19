@@ -1,8 +1,8 @@
-1.
-2.
+1.jki, kji
+2.kij, ikj
 
 --- lines below are ignored by the AG ---
 
-Checkoff Question 1:
-Checkoff Question 2:
-Checkoff Question 3:
+Checkoff Question 1:"for i" is always used to visit the elements in the same row which is stored consecutively, thus put "i" in the most inner loop can make use of cache to store the required elements in advance.
+Checkoff Question 2:"for j" is always used to visit the elements in the same column which is stored far away, thus put "j" in the most inner loop can make neer every visit in cache fail to hit.
+Checkoff Question 3:If the innermost loop can try to visit the consecutive memory, the hit rate of the cache can be high. The greater the stride, the less consecutive the visit would be.
