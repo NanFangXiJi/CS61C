@@ -1,19 +1,19 @@
 Exercise 1:
-    1.
-    2.
-    3.
+    1.32
+    2.5, 5, 0, 5
+    3.no, no
 
 Exercise 2:
-    1.
+    1.00, 20, 40, 60, 80, A0, C0, 00, 20, 40
 
 Exercise 3:
-    1.
+    1.Physical Memory Size
 
 --- lines below are ignored by the AG ---
 
 Exercise 1 Checkoff Questions:
-    1.
-    2.
+    1.We split the Vitual Address Bits into Page part and Offset part. Then, search the page part in the Virtual page number column. If it is found, we have the Physical page number. Joining it with the offset and it is the pysical address bits. If it is not in the TLB, find it in Page table. If it is still not in, we assign the first empty frame as the physical address corresponding to this virtual address. If the memory is full, it will kick a frame into disk to spare some room for new data.
+    2.Because the memory is limited, but the VM tends to bring a illusion that the size of memory is much more bigger.
 
 Exercise 4 Checkoff Question:
     1.
