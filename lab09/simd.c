@@ -51,10 +51,29 @@ long long int sum_simd(int vals[NUM_ELEMS]) {
 	long long int result = 0;				   // This is where you should put your final result!
 	/* DO NOT DO NOT DO NOT DO NOT WRITE ANYTHING ABOVE THIS LINE. */
 	
-	for(unsigned int w = 0; w < OUTER_ITERATIONS; w++) {
-		/* YOUR CODE GOES HERE */
+	int* _marray __attribute__ ((aligned (16))) = calloc(4, sizeof(int));
 
-		/* You'll need a tail case. */
+	for(unsigned int w = 0; w < OUTER_ITERATIONS; w++) {
+		__m128i inner_sum = _mm_setzero_si128();
+
+		size_t i = 0;
+		for (; i + 4 <= NUM_ELEMS; i += 4) {
+			__m128i next4 = _mm_loadu_si128((__m128i_u*)(vals + i));
+			next4 = _mm_and_si128(next4, _mm_cmpgt_epi32(next4, _127));
+			inner_sum = _mm_add_epi32(inner_sum, next4);
+		}
+
+		_mm_store_si128((__m128i*)_marray, inner_sum);
+
+		result += _marray[0];
+		result += _marray[1];
+		result += _marray[2];
+		result += _marray[3];
+
+		while (i < NUM_ELEMS) {
+			result += vals[i] > 127 ? vals[i] : 0;
+			i++;
+		}
 
 	}
 	clock_t end = clock();
@@ -66,11 +85,38 @@ long long int sum_simd_unrolled(int vals[NUM_ELEMS]) {
 	clock_t start = clock();
 	__m128i _127 = _mm_set1_epi32(127);
 	long long int result = 0;
-	for(unsigned int w = 0; w < OUTER_ITERATIONS; w++) {
-		/* COPY AND PASTE YOUR sum_simd() HERE */
-		/* MODIFY IT BY UNROLLING IT */
+	int* _marray __attribute__ ((aligned (16))) = calloc(4, sizeof(int));
 
-		/* You'll need 1 or maybe 2 tail cases here. */
+	for(unsigned int w = 0; w < OUTER_ITERATIONS; w++) {
+		__m128i inner_sum = _mm_setzero_si128();
+
+		size_t i = 0;
+		for (; i + 16 <= NUM_ELEMS; i += 16) {
+			__m128i next4 = _mm_loadu_si128((__m128i_u*)(vals + i));
+			next4 = _mm_and_si128(next4, _mm_cmpgt_epi32(next4, _127));
+			inner_sum = _mm_add_epi32(inner_sum, next4);
+			next4 = _mm_loadu_si128((__m128i_u*)(vals + i + 4));
+			next4 = _mm_and_si128(next4, _mm_cmpgt_epi32(next4, _127));
+			inner_sum = _mm_add_epi32(inner_sum, next4);
+			next4 = _mm_loadu_si128((__m128i_u*)(vals + i + 8));
+			next4 = _mm_and_si128(next4, _mm_cmpgt_epi32(next4, _127));
+			inner_sum = _mm_add_epi32(inner_sum, next4);
+			next4 = _mm_loadu_si128((__m128i_u*)(vals + i + 12));
+			next4 = _mm_and_si128(next4, _mm_cmpgt_epi32(next4, _127));
+			inner_sum = _mm_add_epi32(inner_sum, next4);
+		}
+
+		_mm_store_si128((__m128i*)_marray, inner_sum);
+
+		result += _marray[0];
+		result += _marray[1];
+		result += _marray[2];
+		result += _marray[3];
+
+		while (i < NUM_ELEMS) {
+			result += vals[i] > 127 ? vals[i] : 0;
+			i++;
+		}
 
 	}
 	clock_t end = clock();
