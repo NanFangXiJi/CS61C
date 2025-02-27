@@ -209,6 +209,7 @@ char *image_proc(const char* filename) {
 
    // To parallelize these for loops, check out scheduling policy: http://jakascorner.com/blog/2016/06/omp-for-scheduling.html
    // and omp collapse directive https://software.intel.com/en-us/articles/openmp-loop-collapse-directive
+   # pragma omp parallel for collapse(2) schedule(static)
    for (int i = 1; i < hgt-1; i++) {
       for (int j = 1; j < wid-1; j++) {
          sobel_filter(img.img_pixels, img_copy.img_pixels, i, j);
